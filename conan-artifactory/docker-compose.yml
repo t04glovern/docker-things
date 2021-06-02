@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  artifactory:
+    image: docker.bintray.io/jfrog/artifactory-cpp-ce:latest
+    ports:
+      - "8081:8081"
+      - "8082:8082"

@@ -1,0 +1,18 @@
+localRepositories:
+  conan-local:
+    type: conan
+    repoLayout: conan-default
+
+remoteRepositories:
+  conan-remote:
+    type: conan
+    url: https://conan.bintray.com
+    repoLayout: conan-default
+
+virtualRepositories:
+  conan:
+    type: conan
+    repositories:
+      - conan-local
+      - conan-remote
+    repoLayout: conan-default
