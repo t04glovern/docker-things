@@ -3,7 +3,8 @@
 set -e
 
 echo "[INFO] Bringing container up: please wait..."
-docker-compose -f conan-artifactory/docker-compose.yml up -d
+CONAN_ARTIFACTORY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+docker-compose -f $CONAN_ARTIFACTORY_DIR/conan-artifactory/docker-compose.yml up -d
 
 # Random sleep
 echo "[INFO] please hold for a bit..."
@@ -15,7 +16,7 @@ curl \
     --request PATCH 'http://localhost:8081/artifactory/api/system/configuration' \
     --header 'Content-Type: application/yaml' \
     --header 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' \
-    --data-binary '@./conan-artifactory/repositories.yml'
+    --data-binary '@.$CONAN_ARTIFACTORY_DIR/conan-artifactory/repositories.yml'
 ARTIFACTORY_PASSWORD=$(curl --location --request GET 'http://localhost:8081/artifactory/api/security/encryptedPassword' --header 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=')
 
 # Setup Python env
