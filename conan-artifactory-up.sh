@@ -11,7 +11,7 @@ echo "[INFO] please hold for a bit..."
 sleep 60
 
 # Fetch password
-curl \
+curl -s \
     --location \
     --request PATCH 'http://localhost:8081/artifactory/api/system/configuration' \
     --header 'Content-Type: application/yaml' \
@@ -22,10 +22,13 @@ ARTIFACTORY_PASSWORD=$(curl --location --request GET 'http://localhost:8081/arti
 # Setup Python env
 python3 -m venv $CONAN_ARTIFACTORY_DIR/conan-artifactory/venv
 source $CONAN_ARTIFACTORY_DIR/conan-artifactory/venv/bin/activate
-pip install -U pip
-pip install conan
+pip install -U pip --quiet
+pip install conan --quiet
 
 # login to conan
 conan remote remove conan-docker || 2>&1 >/dev/null
 conan remote add conan-docker http://localhost:8081/artifactory/api/conan/conan
 CONAN_REVISIONS_ENABLED=1 conan user -p $ARTIFACTORY_PASSWORD -r conan-docker admin
+
+echo "[PLEASE RUN]"
+echo "source $CONAN_ARTIFACTORY_DIR/conan-artifactory/venv/bin/activate"
