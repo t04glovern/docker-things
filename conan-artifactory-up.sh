@@ -16,12 +16,12 @@ curl \
     --request PATCH 'http://localhost:8081/artifactory/api/system/configuration' \
     --header 'Content-Type: application/yaml' \
     --header 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' \
-    --data-binary '@.$CONAN_ARTIFACTORY_DIR/conan-artifactory/repositories.yml'
+    --data-binary "@$CONAN_ARTIFACTORY_DIR/conan-artifactory/repositories.yml"
 ARTIFACTORY_PASSWORD=$(curl --location --request GET 'http://localhost:8081/artifactory/api/security/encryptedPassword' --header 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=')
 
 # Setup Python env
-python3 -m venv conan-artifactory/venv
-source conan-artifactory/venv/bin/activate
+python3 -m venv $CONAN_ARTIFACTORY_DIR/conan-artifactory/venv
+source $CONAN_ARTIFACTORY_DIR/conan-artifactory/venv/bin/activate
 pip install -U pip
 pip install conan
 
