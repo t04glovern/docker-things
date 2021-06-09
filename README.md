@@ -23,6 +23,7 @@ source ~/.bash_profile
 ```bash
 # example up
 conan-artifactory-up.sh
+source $HOME/.docker-things/conan-artifactory/venv/bin/activate
 
 # example down
 conan-artifactory-down.sh
