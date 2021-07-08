@@ -16,3 +16,4 @@ virtualRepositories:
       - conan-local
       - conan-remote
     repoLayout: conan-default
+    defaultDeploymentRepo: conan-local
